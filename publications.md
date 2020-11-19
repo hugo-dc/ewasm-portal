@@ -18,7 +18,7 @@ Below you may find a list of publications and presentations by the team.
 * [Survey of proposals to reduce block witness size](https://ethresear.ch/t/survey-of-proposals-to-reduce-block-witness-size/7173), 2020-03-23
 * [Zero Knowledge Tooling for an Eth 2.0 Wasm Execution Layer](https://ethresear.ch/t/zero-knowledge-tooling-for-an-eth-2-0-wasm-execution-layer/7080), 2020-03-05
 * [The Eth1x64 experiment](https://ethresear.ch/t/the-eth1x64-experiment/7195), 2020-03-05
-* [zk-MerkleWitnessAndSigRollup, a generic SNARK circuit for stateless contracts?](https://ethresear.ch/t/zk-merklewitnessandsigrollup-a-generic-snark-circuit-for-stateless-contracts/7011), 2020-02-23
+* [zk-MerkleWitnessAndSigRollup, a generic SNARK circuit for stateless contracts](https://ethresear.ch/t/zk-merklewitnessandsigrollup-a-generic-snark-circuit-for-stateless-contracts/7011), 2020-02-23
 * [A protocol for cross-shard ETH transfers: even more simpler and transparent](https://ethresear.ch/t/a-protocol-for-cross-shard-eth-transfers-even-more-simpler-and-transparent/6996), 2020-02-20
 * [Phase 2 execution prototyping engine (Ewasm Scout)](https://ethresear.ch/t/phase-2-execution-prototyping-engine-ewasm-scout/5509), 2019-05-19
 * [Phase One and Done: eth2 as a data availability engine](https://ethresear.ch/t/phase-one-and-done-eth2-as-a-data-availability-engine/5269), 2019-04-7
