@@ -13,6 +13,7 @@ Below you may find a list of publications and presentations by the team.
 
 * [State of block header sync in light clients](https://ethresear.ch/t/state-of-block-header-sync-in-light-clients/8047), 2020-09-29
 * [Eth1x64 Variant 1 “Apostille”](https://ethresear.ch/t/eth1x64-variant-1-apostille/7365), 2020-05-07
+* [EIP-2315 "Simple Subroutines for the EVM" - Analysis](https://ethereum-magicians.org/t/eip-2315-simple-subroutines-for-the-evm-analysis/4229), 2020-04-29
 * [The curious case of BLOCKHASH and Stateless Ethereum](https://ethresear.ch/t/the-curious-case-of-blockhash-and-stateless-ethereum/7304), 2020-04-20
 * [Stateless Mining Strategies](https://ethresear.ch/t/stateless-mining-strategies/7172), 2020-03-23
 * [Survey of proposals to reduce block witness size](https://ethresear.ch/t/survey-of-proposals-to-reduce-block-witness-size/7173), 2020-03-23
