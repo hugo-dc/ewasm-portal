@@ -40,6 +40,7 @@ Below you may find a list of publications and presentations by the team.
 * [EVM Bytecode Merklization](https://www.youtube.com/watch?v=d4CqECZjmKo), EthCC - 2020-03-05
 * [Ewasm 2.0: State Execution in Eth 2.0](https://www.youtube.com/watch?v=LXMGyHFmTr8), Devcon5
 * [Ewasm: Past, Present, Future](https://www.youtube.com/watch?v=aoaJIaq_fF8), Devcon5
+* [EVM Roundtable: Everything You Wanted to Ask, But Were Afraid To](https://www.youtube.com/watch?v=hhDjviZegbA), Devcon5
 * [Ewasm overview and the precompile problem - Part 2](https://www.youtube.com/watch?v=a9hbycBMr_A), Wasm Workshop Berlin - June 2019
 * [Ewasm overview and the precompile problem - Part 1](https://www.youtube.com/watch?v=YW6hszjjMqo), Wasm Workshop Berlin - June 2019
 * [Wasm for blockchain & Eth2 execution](https://www.youtube.com/watch?v=XxMTGi4gDfE), Wasm Workshop Berlin - June 2019
