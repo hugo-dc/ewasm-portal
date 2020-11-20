@@ -20,8 +20,6 @@ can be integrated in existing Ethereum client compatible with [EVMC](https://git
 * [Sentinel Contract](https://github.com/ewasm/sentinel-rs): A system contract that validates and injects gas metering to contracts at deploy time. Written in Rust and targetting Wasm.
 * [Ewasm Tests](https://github.com/ewasm/tests/tree/wasm-tests/src/GeneralStateTestsFiller/stEWASMTests): A suite of state tests for Wasm bytecodes adhereing to the [Ewasm interface](https://github.com/ewasm/design/blob/master/eth_interface.md), runnable by Ewasm-compatible clients.
 * [Block Explorer (Etherchain Light](https://github.com/ewasm/etherchain-light): Fork of [Etherchain Light](https://github.com/gobitfly/etherchain-light) for visualizing blocks in the Ewasm testnet
-* **Ewasm/Truffle Integration**: `<insert description>`
-* **Hera fuzzer**: `<insert description>`
 
 ### Ewasm API
 
@@ -129,6 +127,10 @@ Scout enabled us and other researchers to rapidly prototype and assess the feasi
 
 ## Misc
 
+**Ewasm/Truffle Integration**: `<insert description>`
+
+**Hera fuzzer**: `<insert description>`
+
 **TurboEwasm/EwasmOS?**:  `<insert description>`
 
 > Guillaume and Paul worked on this
@@ -138,7 +140,6 @@ Scout enabled us and other researchers to rapidly prototype and assess the feasi
 > I think it was an internal survey?, just in case we want to mention it
 
 **Coda challenge/Wasmsnark?**: `<insert description>`
-
 
 **Wag**: `<insert description>`
 
