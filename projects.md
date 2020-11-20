@@ -23,6 +23,8 @@ can be integrated in existing Ethereum client compatible with [EVMC](https://git
 
 ### Ewasm API
 
+The Ewasm API is an [interface](https://github.com/ewasm/design/blob/master/eth_interface.md) exposed to contracts written in Wasm to access Ethereum environment data. Clients integrating Ewasm must implement these functions to be compliant.
+
 * [Rust Ewasm API](https://github.com/ewasm/ewasm-rust-api): Rust library which defines an Ewasm API that allows accessing Ewasm functions from contracts written in Rust.
 * [Assemblyscript Ewasm API](https://github.com/ewasm/assemblyscript-ewasm-api): Ewasm API for AssemblyScript
 
@@ -40,11 +42,16 @@ All these projects allowed to run an Ethereum 1.0 Testnet with Ewasm Support. Th
 
 ### Client integration
 
+This section gives an overview of the efforts around integrating Ewasm into clients.
+
 * **Geth+Wagon**: Integrating Wagon into Geth as Ewasm Engine.
 * **Geth+Hera**: Integration of Hera in a fork of Geth.
 * **PyEVM Integration**: Lane and Paul worked with the PyEVM team in order to integrate Ewasm
+* [EthereumJS-VM integration](https://github.com/ethereumjs/ethereumjs-vm/pull/474)
 
 ### Wasm utilities
+
+Some utilities developed for internal usage specific to Ewasm were extracted and published to benefit the wider Wasm ecosystem:
 
 * [Wasm Chisel](https://github.com/wasmx/wasm-chisel): Some useful utilities to transform WebAssembly binaries, with feasures such as: `remapimports`, `trimexports`, `snip`, `deployer`, etc.
 * [qimalloc](https://github.com/wasmx/qimalloc): Quick Incremental (Wasteful) Memory Allocator. This memory allocator will not release any memory. Its main use case is in short-lived environment, such as WebAssembly binaries.
