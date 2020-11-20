@@ -132,6 +132,10 @@ Scout enabled us and other researchers to rapidly prototype and assess the feasi
 * [PyWebAssembly](https://github.com/poemm/pywebassembly): Implementation of the WebAssembly spec in Python
 * **CppWebAssembly**: C++ implementation of the WebAssembly spec
 
+## Benchmarking Report
+
+The benchmarking report will be the culmination of a big undertaking which involved benchmarking and comparing various Wasm engines (interpreters and compilers), EVM engines, optimizing both EVM and Wasm bytecode, measuring metering overhead, etc. The full report is not yet available, however the tools to run these benchmarks and the majority of charts are available [here](https://github.com/ewasm/benchmarking).
+
 ## Misc
 
 **Ewasm/Truffle Integration**: `<insert description>`
@@ -151,14 +155,6 @@ Scout enabled us and other researchers to rapidly prototype and assess the feasi
 **Wag**: `<insert description>`
 
 **WebAssembly Engines Benchmarking**: `<insert description>`
-
-### 2020 - Benchmarks, Eth2Phase2 Execution Prototyping, Cross-shard, Metering, Eth1x, Eth1x64, EVM384
-
-**Benchmark Report**:
-
-- Added more engines: wasm3, wamr, fizzy, wamr-jit, wamr-aot, ssvm, asmble, eosvm
-- Upgraded Docker images
-- Included scout benchmarks
 
 **Cross-shard research**:
 
