@@ -44,6 +44,8 @@ Below you may find a list of publications and presentations by the team.
 * [Ewasm overview and the precompile problem - Part 2](https://www.youtube.com/watch?v=a9hbycBMr_A), Wasm Workshop Berlin - June 2019
 * [Ewasm overview and the precompile problem - Part 1](https://www.youtube.com/watch?v=YW6hszjjMqo), Wasm Workshop Berlin - June 2019
 * [Wasm for blockchain & Eth2 execution](https://www.youtube.com/watch?v=XxMTGi4gDfE), Wasm Workshop Berlin - June 2019
+* [Ewasm Updates](https://www.youtube.com/watch?v=HaT-BIzWSew?t=20m30s). Eth1.x/Istanbul Planning Workshop - April 2019
+* [Gas Token: Killing the Final Boss](https://www.youtube.com/watch?v=HaT-BIzWSew&t=2h14m00s), Eth1.x/Istanbul Planning Workshop - April 2019
 * [Ewasm Ethereum 1.x update](https://www.youtube.com/watch?v=BEgXRjr5Yao), EthCC - March 2019
 * [Ewasm: Ethereum-flavored WebAssembly and Ethereum 2.0 - Part 2](https://www.youtube.com/watch?v=W4T4Q_SUQt0), Devcon4
 * [Ewasm: Ethereum-flavored WebAssembly and Ethereum 2.0 - Part 1](https://www.youtube.com/watch?v=LXMGyHFmTr8), Devcon4
