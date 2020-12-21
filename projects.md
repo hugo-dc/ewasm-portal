@@ -135,32 +135,3 @@ Scout enabled us and other researchers to rapidly prototype and assess the feasi
 ## Benchmarking Report
 
 The benchmarking report will be the culmination of a big undertaking which involved benchmarking and comparing various Wasm engines (interpreters and compilers), EVM engines, optimizing both EVM and Wasm bytecode, measuring metering overhead, etc. The full report is not yet available, however the tools to run these benchmarks and the majority of charts are available [here](https://github.com/ewasm/benchmarking).
-
-## Misc
-
-**Ewasm/Truffle Integration**: `<insert description>`
-
-**Hera fuzzer**: `<insert description>`
-
-**TurboEwasm/EwasmOS?**:  `<insert description>`
-
-> Guillaume and Paul worked on this
-
-**WebAssembly Blockchains Survey**: `<insert description>`
-
-> I think it was an internal survey?, just in case we want to mention it
-
-**Coda challenge/Wasmsnark?**: `<insert description>`
-
-**Wag**: `<insert description>`
-
-**WebAssembly Engines Benchmarking**: `<insert description>`
-
-**Cross-shard research**:
-
-- https://notes.ethereum.org/OS-kqaD3S-aGm6IEHTcfLQ
-- Balance netting https://notes.ethereum.org/fkPBDSV_QiSePrrk5u-0Qg
-- Atomic cross-shard via Lamport timestamps https://notes.ethereum.org/lOGzEL0YSD6R9F_IkZMsrQ
-- Cross shard transfer https://notes.ethereum.org/Sd3pOEwrQSaYeXHdAmIEvw?view
-- Minimal cross-shard communication
-- Shard-aware host unctions
