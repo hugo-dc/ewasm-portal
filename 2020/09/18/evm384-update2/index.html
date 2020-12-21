@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>EVM384 - Update on the Interface | Ewasm</title>
+
+  <meta name="author" content="Ewasm Team" />
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Ewasm - Collection of articles about the Solidity language and compiler" href="/ewasm-portal/feed.xml" />
+
+  
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/ewasm-portal/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/ewasm-portal/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/ewasm-portal/css/main.css" />
+    
+      <link rel="stylesheet" href="/ewasm-portal/css/search.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="EVM384 - Update on the Interface" />
+  
+
+   
+  <meta property="og:description" content="Text jointly authored (in reverse alphabetic order) by Paul Dworzanski, Jared Wasinger, with help from the entire Ewasm team. This writeup was originally posted at https://notes.ethereum.org/@poemm/evm384-interface-update For feedback there is an EthMagicians topic. Introduction This is a follow-up on our previous document: EVM384 – Can we do Fast Crypto in...">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="https://ewasm.ethereum.org/2020/09/18/evm384-update2/" />
+  <link rel="canonical" href="https://ewasm.ethereum.org/2020/09/18/evm384-update2/" />
+  
+
+  
+  <meta property="og:image" content="/img/ewasm2d.png" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="EVM384 - Update on the Interface" />
+  
+
+  
+  <meta name="twitter:description" content="Text jointly authored (in reverse alphabetic order) by Paul Dworzanski, Jared Wasinger, with help from the entire Ewasm team. This writeup was originally posted at https://notes.ethereum.org/@poemm/evm384-interface-update For feedback there is an EthMagicians topic. Introduction This is a follow-up on our previous document: EVM384 – Can we do Fast Crypto in...">
+  
+
+  
+  <meta name="twitter:image" content="https://ewasm.ethereum.org/favicon.png" />
+  
+
+  
+
+  <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+
+</head>
+
+
+  <body>
+
+    
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="https://ewasm.ethereum.org">Ewasm</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/ewasm-portal/blog/">Blog</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/ewasm-portal/projects/">Projects</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/ewasm-portal/publications/">Publications</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/ewasm-portal/faq/">FAQ</a>
+
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+
+  
+
+  <header class="header-section ">
+  
+
+  <div class="intro-header no-img">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          <div class="post-heading">
+            <h1>EVM384 - Update on the Interface</h1>
+            
+        
+            
+              <span class="post-meta">Posted by Ewasm Team on September 18, 2020</span>
+              <ul class="post-category-list">
+                
+                <li>
+                  <a
+                    href="/ewasm-portal/category/releases/"
+                    class="category-releases">
+                    Releases
+                  </a>
+                </li>
+                
+              </ul>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </header>
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+      
+
+      <article role="main" class="blog-post">
+        <p>Text jointly authored (in reverse alphabetic order) by Paul Dworzanski, Jared Wasinger, with help from the entire <a href="https://github.com/ewasm">Ewasm</a> team.  This writeup was originally posted at https://notes.ethereum.org/@poemm/evm384-interface-update</p>
+
+<p>For feedback there is an <a href="https://ethereum-magicians.org/t/evm384-feedback-and-discussion/4533">EthMagicians topic</a>.</p>
+
+<h2 id="introduction">Introduction</h2>
+
+<p>This is a follow-up on our previous document: <a href="https://notes.ethereum.org/@axic/evm384">EVM384 – Can we do Fast Crypto in EVM?</a></p>
+
+<p>In this update, we continue our investigation into adding EVM opcodes <code class="language-plaintext highlighter-rouge">addmod384</code>, <code class="language-plaintext highlighter-rouge">submod384</code>, and <code class="language-plaintext highlighter-rouge">mulmodmont384</code>, which we call EVM384 opcodes.</p>
+
+<p>Before implementing large cryptographic algorithms with these opcodes, we first experiment on a smaller algorithm, with different languages, and with different interfaces to EVM384 opcodes. We would not want to implement large cryptographic algorithms only to have to rewrite them in a more a optimal language or with a more optimal interface to opcodes.</p>
+
+<h2 id="the-evm384-interface-candidates-v1-to-v7">The EVM384 Interface Candidates v1 to v7</h2>
+
+<p>The most optimal interface is v7. In this section, we discuss the other interfaces which we tried before we arrived at v7. These earlier interfaces can be skipped.</p>
+
+<p>For a complete specification of each interface, see the <a href="https://notes.ethereum.org/6K7FEgPWS2S2Tdw2S5NKmQ">EVM384 specs doc</a>.</p>
+
+<p>For implementations of these interfaces in evmone, which we use for benchmarking below, see <a href="https://github.com/ethereum/evmone/tree/v0.5.0-evm384-v1">evmone384v1</a>, <a href="https://github.com/ethereum/evmone/tree/v0.5.0-evm384-v2">evmone384v2</a>, <a href="https://github.com/ethereum/evmone/tree/v0.5.0-evm384-v2-unsafe">evmone384v3</a>, <a href="https://github.com/jwasinger/evmone/tree/evm384-v4">evmone384v4</a> and <a href="https://github.com/jwasinger/evmone/tree/evm384-v5">evmone384v5</a>, <a href="https://github.com/jwasinger/evmone/tree/evm384-v6">evmone384v6</a>, and <a href="https://github.com/jwasinger/evmone/tree/evm384-v7">evmone384v7</a>.</p>
+
+<h3 id="interfaces-v1-v2-and-v3">Interfaces v1, v2, and v3</h3>
+
+<p>These first three interfaces were introduced in our previous documents. As a reminder, version 1 is stack-only. Suspecting bottlenecks from stack manipulation in version 1, we designed version 2 which keeps values in memory and passes memory offsets as stack items. Version 3 is like version 2 but the opcodes don’t check memory offset overflow in EVM384 opcodes, which is unsafe and useful only to measure memcheck overheads.</p>
+
+<h3 id="interface-v4-and-v5">Interface v4 and v5</h3>
+
+<p>We suspect that setting stack items for field parameters may be redundant and expensive. With this in mind, we designed interface v4 by modifying v2 to exclude stack items for field parameters. We just hard-coded the field parameters for BLS12-381 – we assume a way to change these hard-coded field parameters, perhaps with an extra opcode.</p>
+
+<p>We also implement v5, which is v4 modified to unsafely omit memory overflow checks, similarly to v3, to measure memcheck overhead.</p>
+
+<h3 id="interface-v6">Interface v6</h3>
+
+<p>We notice speedups from using fewer stack items in v4 and avoiding memory checks in v5. We design v6 to only use one single stack item in a way which safely avoids most memory checks. We do this with two tricks: virtual registers and packing. Virtual registers are 256 contiguous 48-byte chunks of memory, immediately followed in memory by a 257th register with the fixed field parameters. Our inputs and outputs to EVM384 opcodes are byte-sized indices to these registers packed into a single stack item.</p>
+
+<h3 id="interface-v7">Interface v7</h3>
+
+<p>Because of the awkwardness and limitations of v6’s virtual registers, we look for an alternative. To limit the stack manipulation bottleneck, we continue to pack all arguments into a single stack item. In this version, each argument is a 32-bit memory offset. There are four arguments: two offsets to the 48-byte input values, an offset to the 56-byte fixed field parameters, and offset to the 48-byte to put the output. Each EVM384 opcode operates over these four memory offsets.</p>
+
+<h2 id="huff-vs-yul">Huff vs. Yul</h2>
+
+<p>Besides opcode interfaces, we are also interested in languages for optimizing cryptographic algorithms using EVM384 opcodes. We use low-level languages Yul and Huff.</p>
+
+<p>As in our previous doc, we study <code class="language-plaintext highlighter-rouge">f6m_mul</code>, an expensive part of a pairing algorithm. We implement <code class="language-plaintext highlighter-rouge">f6m_mul</code> in each language for various versions of EVM384.</p>
+<ul>
+  <li>Huff: <a href="https://gist.github.com/poemm/bf50b9c8f18c33c0883461ede3a4ae8a">v2, v4, v6, and v7</a> (There is no v1 implementation in Huff. But we can use v2 in a v3 engine and v4 in a v5 engine. This is because v2 and v3 share the same interface, and the v2 <code class="language-plaintext highlighter-rouge">f6m_mul</code> implementation does not overflow memory. Similarly for v4 on the v5 engine.)</li>
+  <li>Yul <a href="https://github.com/ewasm/evm384_f6m_mul/tree/master/src">v1, v2, v3, v4, v5</a> (There is no v6 and v7 implementation in Yul.)</li>
+</ul>
+
+<h2 id="the-numbers">The Numbers</h2>
+
+<p><img src="https://raw.githubusercontent.com/ewasm/benchmarking/a20307b47aa0435e5c968c94c9b5e564747e9bd3/images/evm384-all-versions.png" alt="" /></p>
+
+<p><strong>Figure 1.</strong> Runtimes for the synthetic loop (described in our <a href="https://notes.ethereum.org/@axic/evm384#The-synthetic-loop">previous document</a>) for <code class="language-plaintext highlighter-rouge">f6m_mul</code> implemented in EVM384, comparing different interfaces and different languages.</p>
+
+<hr />
+
+<p>Interfaces v6 and v7 are the fastest. This is because they only use a single stack item. The other interfaces use between three and five stack items per EVM384 opcode. Removing this stack overhead gives significant speedups. v7 has more memory checks than v6, but v6 has extra multiplications (<code class="language-plaintext highlighter-rouge">48*idx</code>) to get memory offsets to the register indices.</p>
+
+<p>As for languages, Huff has a speedup over Yul. But that does not mean that Yul is worse, since some of the tricks used in our Huff code can be ported back to the Yul implementation. With Huff, you are forced to write pure EVM, and look for hand-optimization tricks. A good Yul programmer will think about EVM when writing Yul.</p>
+
+<p><img src="https://raw.githubusercontent.com/ewasm/benchmarking/d3609fb496217ea3b55ad6115f614fec48dced3c/images/evm384-vs-native-wasm.png" alt="" /></p>
+
+<p><strong>Figure 2.</strong> Runtimes for pairings in native and wasm, along with our synthetic pairing (synthetic loop corrected with adjustment factor, as described in <a href="https://notes.ethereum.org/@axic/evm384#The-synthetic-loop">our previous document</a>) in EVM.</p>
+
+<hr />
+
+<p>Surprizingly, interface v7 beats Wasm in the synthetic loop. This is because Wasm has more stack manipulation before calling each bigint function. We think that we can tune the Wasm interface to compete with EVM384 v7. But our goal is EVM384 performance.</p>
+
+<p>There is one caveat. The estimate above is based on an adjustment factor which gives different cost adjustments for different versions, even though we expect the same cost for non-EVM384 parts of the algorithm. So we don’t know whether we can acheive this speed for the full pairing algorithm. But the numbers encourage further work nonetheless.</p>
+
+<h2 id="conclusion-and-next-steps">Conclusion and Next Steps</h2>
+
+<p>The v7 runtime gives hope for a baseline EVM384 implementation of the BLS12-381 pairing with under a 2x slowdown from native. The performance gap may be decreased further after open calls for code-golf and implementation optimization.</p>
+
+<p>Not mentioned are considerations for gas cost, in addition to runtime. Using a single stack item interface like v7 is also a good design for minimizing gas cost.</p>
+
+<p>A third consideration is bytecode size. A disadvantage of v7 is larger bytecode size (as compared to v6). The v7 <code class="language-plaintext highlighter-rouge">f6m_mul</code> bytecode is around 1500 bytes. If bytecode size becomes a problem, we may consider modifying v7 to pack two-byte offsets instead fo four-byte offsets. This would allow using <code class="language-plaintext highlighter-rouge">PUSH8</code> instead of <code class="language-plaintext highlighter-rouge">PUSH16</code> to set up the stack for each EVM384 opcode, saving eight bytes per EVM384 instruction. Another way to cope with bytecode size is to put each curve operation into a separate contract to be used as a library.</p>
+
+<p>We discussed another interface which completely removes stack items is to give each EVM384 opcode an immediate with packed offsets like v7. But immediates could break EVM backwards compatibility – the topic of immediates was discussed multiple times with other EIPs. The v7 interface may allow straghtforward transformation of code to a new version with immediates, so v7 code remains flexible. But we don’t think that the savings will be large anyway.</p>
+
+<p>One more note. We use little-endian byte ordering in v7. This is inconsistent with EVM’s big-endian convention. We plan to create a new interface version like v7 but using big-endian for all values. This will allow us to measure whether there is significant overhead in reversing the byte ordering for each operation to the common little-endian format expected by most modern computer architectures. If this overhead is insignificant, then we will pivot to a new interface version which is like v7 but big-endian.</p>
+
+<p>What are the next steps? We are settling on interface v7, with the possibility of changing offsets to two-bytes each and using big-endian for values. We are planning to publish an EIP after these two questions are answered. We encourage people to begin planning the implemention of cryptographic algorithms with interface v7, and considering Huff as a language.</p>
+
+      </article>
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+
+      
+
+      <ul class="pager blog-pager">
+        
+        <li class="previous">
+          <a href="/ewasm-portal/2020/08/21/evm384-intro/" data-toggle="tooltip" data-placement="top" title="EVM384 - Can we do Fast Crypto in EVM?">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="next">
+          <a href="/ewasm-portal/2020/10/16/evm384-update3/" data-toggle="tooltip" data-placement="top" title="EVM384 - Update 3">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+
+      
+        <div class="disqus-comments">
+          
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/ewasm-portal/feed.xml" title="RSS"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">RSS</span>
+              </a>
+            </li><li><a href="mailto:solidity@ethereum.org" title="Email me"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">Email me</span>
+              </a>
+            </li><li><a href="https://github.com/ewasm" title="GitHub"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">GitHub</span>
+              </a>
+            </li><li><a href="https://gitter.im/ethereum/ewasm" title="Gitter"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-comments fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">Gitter</span>
+              </a>
+            </li><li><a href="https://twitter.com/ethereumWasm" title="Twitter"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">Twitter</span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+        Ewasm Team
+        &nbsp;&bull;&nbsp;
+        2020
+
+        
+        &nbsp;&bull;&nbsp;
+        <a href="https://ewasm.ethereum.org">ewasm.ethereum.org</a>
+        
+
+        &nbsp;&bull;&nbsp;
+        <a href="/archive/">Blog Archive</a>
+
+        
+        
+      </p>
+        <!-- Please don't remove this, keep my open source work credited :) -->
+        <p class="theme-by text-muted">
+          Theme by
+          <a href="http://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/ewasm-portal/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    
+    
+	<script src="/ewasm-portal/js/bootstrap.min.js"></script>
+    
+  
+    
+    
+	<script src="/ewasm-portal/js/main.js"></script>
+    
+  
+
+
+
+  
+  </body>
+</html>

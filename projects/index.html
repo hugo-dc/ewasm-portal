@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Projects | Ewasm</title>
+
+  <meta name="author" content="Ewasm Team" />
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Ewasm - Collection of articles about the Solidity language and compiler" href="/ewasm-portal/feed.xml" />
+
+  
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/ewasm-portal/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/ewasm-portal/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/ewasm-portal/css/main.css" />
+    
+      <link rel="stylesheet" href="/ewasm-portal/css/search.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="Projects" />
+  
+
+   
+  <meta property="og:description" content="Below you may find a list of projects by the team. ## Ewasm 1.0 Ewasm 1.0 is an umbrella term for a collection of projects with the goal of bringing Wasm to the Eth1 mainnet. You may find the specs in the [design repo](https://github.com/ewasm/design). * **[Hera (C++)](https://github.com/ewasm/hera) and [Hera.rs (Rust)](https://github.com/ewasm/hera.rs)**:...">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="https://ewasm.ethereum.org/projects/" />
+  <link rel="canonical" href="https://ewasm.ethereum.org/projects/" />
+  
+
+  
+  <meta property="og:image" content="/img/ewasm2d.png" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="Projects" />
+  
+
+  
+  <meta name="twitter:description" content="Below you may find a list of projects by the team. ## Ewasm 1.0 Ewasm 1.0 is an umbrella term for a collection of projects with the goal of bringing Wasm to the Eth1 mainnet. You may find the specs in the [design repo](https://github.com/ewasm/design). * **[Hera (C++)](https://github.com/ewasm/hera) and [Hera.rs (Rust)](https://github.com/ewasm/hera.rs)**:...">
+  
+
+  
+  <meta name="twitter:image" content="https://ewasm.ethereum.org/favicon.png" />
+  
+
+  
+
+  <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+
+</head>
+
+
+  <body>
+
+    
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="https://ewasm.ethereum.org">Ewasm</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/ewasm-portal/blog/">Blog</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/ewasm-portal/projects/">Projects</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/ewasm-portal/publications/">Publications</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/ewasm-portal/faq/">FAQ</a>
+
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+
+  
+
+  <header class="header-section ">
+  
+
+  <div class="intro-header no-img">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          <div class="page-heading">
+            <h1>Projects</h1>
+            
+        
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </header>
+
+
+
+
+
+<div class="container" role="main">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+      <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#ewasm-10">Ewasm 1.0</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#ewasm-api">Ewasm API</a></li>
+<li class="toc-entry toc-h3"><a href="#evm-to-ewasm">EVM to Ewasm</a></li>
+<li class="toc-entry toc-h3"><a href="#testnet">Testnet</a></li>
+<li class="toc-entry toc-h3"><a href="#client-integration">Client integration</a></li>
+<li class="toc-entry toc-h3"><a href="#wasm-utilities">Wasm utilities</a></li>
+<li class="toc-entry toc-h3"><a href="#metering">Metering</a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#evm">EVM</a></li>
+<li class="toc-entry toc-h2"><a href="#eth1x">Eth1x</a></li>
+<li class="toc-entry toc-h2"><a href="#eth-20">Eth 2.0</a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#phase-2">Phase 2</a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#execution-environments-ees">Execution Environments (EEs)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#wasm-interpreters">Wasm Interpreters</a></li>
+<li class="toc-entry toc-h2"><a href="#benchmarking-report">Benchmarking Report</a></li>
+</ul><p>Below you may find a list of projects by the team.</p>
+
+<h2 id="ewasm-10">
+<a class="anchor" href="#ewasm-10" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ewasm 1.0</h2>
+
+<p>Ewasm 1.0 is an umbrella term for a collection of projects with the goal of bringing Wasm to the Eth1 mainnet. You may find the specs in the <a href="https://github.com/ewasm/design">design repo</a>.</p>
+
+<ul>
+  <li>
+<strong><a href="https://github.com/ewasm/hera">Hera (C++)</a> and <a href="https://github.com/ewasm/hera.rs">Hera.rs (Rust)</a></strong>: The ewasm 1.0 virtual machine which
+can be integrated in existing Ethereum client compatible with <a href="https://github.com/ethereum/evmc">EVMC</a>. Hera has support to different WebAssembly interpreters and compilers such as <a href="https://github.com/webassembly/wabt">Wabt</a>, <a href="https://github.com/webassembly/binaryen">Binaryen</a>, and <a href="https://github.com/WAVM/WAVM">WAVM</a>.</li>
+  <li>
+<a href="https://github.com/ewasm/ewasm-precompiles">Ewasm Precompiles</a>: Wasm implementation of the Eth1 precompiled contracts</li>
+  <li>
+<a href="https://github.com/ewasm/sentinel-rs">Sentinel Contract</a>: A system contract that validates and injects gas metering to contracts at deploy time. Written in Rust and targetting Wasm.</li>
+  <li>
+<a href="https://github.com/ewasm/tests/tree/wasm-tests/src/GeneralStateTestsFiller/stEWASMTests">Ewasm Tests</a>: A suite of state tests for Wasm bytecodes adhereing to the <a href="https://github.com/ewasm/design/blob/master/eth_interface.md">Ewasm interface</a>, runnable by Ewasm-compatible clients.</li>
+  <li>
+<a href="https://github.com/ewasm/etherchain-light">Block Explorer (Etherchain Light</a>: Fork of <a href="https://github.com/gobitfly/etherchain-light">Etherchain Light</a> for visualizing blocks in the Ewasm testnet</li>
+</ul>
+
+<h3 id="ewasm-api">
+<a class="anchor" href="#ewasm-api" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ewasm API</h3>
+
+<p>The Ewasm API is an <a href="https://github.com/ewasm/design/blob/master/eth_interface.md">interface</a> exposed to contracts written in Wasm to access Ethereum environment data. Clients integrating Ewasm must implement these functions to be compliant.</p>
+
+<ul>
+  <li>
+<a href="https://github.com/ewasm/ewasm-rust-api">Rust Ewasm API</a>: Rust library which defines an Ewasm API that allows accessing Ewasm functions from contracts written in Rust.</li>
+  <li>
+<a href="https://github.com/ewasm/assemblyscript-ewasm-api">Assemblyscript Ewasm API</a>: Ewasm API for AssemblyScript</li>
+</ul>
+
+<h3 id="evm-to-ewasm">
+<a class="anchor" href="#evm-to-ewasm" aria-hidden="true"><span class="octicon octicon-link"></span></a>EVM to Ewasm</h3>
+
+<p>Ewasm could be introduced to Eth1 either as a replacement to EVM or as a second VM. Either way, these tools help reduce the burden on clients by enabling them to run EVM contracts through their Wasm engine so they don’t have to maintain 2 VMs.</p>
+
+<ul>
+  <li>
+<a href="https://github.com/axic/runevm">Runevm</a>: A Wasm contract that embeds an EVM <a href="https://github.com/paritytech/parity-ethereum/">interpreter</a>. It allows clients with only Wasm support to execute EVM bytecode.</li>
+  <li>
+<a href="https://github.com/ewasm/evm2wasm">Evm2wasm</a>: Transcompiles EVM code to Ewasm</li>
+  <li>
+<a href="https://github.com/axic/yevm">YEVM</a>: “Why EVM?” is an EVM compiler infrastructure, targetting Ewasm by utilising <a href="https://solidity.readthedocs.io/en/develop/yul.html">Yul</a> as an intermediate step.</li>
+</ul>
+
+<h3 id="testnet">
+<a class="anchor" href="#testnet" aria-hidden="true"><span class="octicon octicon-link"></span></a>Testnet</h3>
+
+<p>All these projects allowed to run an Ethereum 1.0 Testnet with Ewasm Support. This means you could create contracts in a language targetting EVM (i.e. Solidity), or you could write contracts using a language targetting WebAssembly (Rust, C, AssemblyScript, etc), and live in the same testnet. The testnet is not being actively maintained anymore. However you can play with a Ewasm 1.0 Testnet in a local environment using this <a href="https://github.com/jwasinger/ewasm-dev-env">repository</a>.</p>
+
+<h3 id="client-integration">
+<a class="anchor" href="#client-integration" aria-hidden="true"><span class="octicon octicon-link"></span></a>Client integration</h3>
+
+<p>This section gives an overview of the efforts around integrating Ewasm into clients.</p>
+
+<ul>
+  <li>
+<strong>Geth+Wagon</strong>: Integrating Wagon into Geth as Ewasm Engine.</li>
+  <li>
+<strong>Geth+Hera</strong>: Integration of Hera in a fork of Geth.</li>
+  <li>
+<strong>PyEVM Integration</strong>: Lane and Paul worked with the PyEVM team in order to integrate Ewasm</li>
+  <li><a href="https://github.com/ethereumjs/ethereumjs-vm/pull/474">EthereumJS-VM integration</a></li>
+</ul>
+
+<h3 id="wasm-utilities">
+<a class="anchor" href="#wasm-utilities" aria-hidden="true"><span class="octicon octicon-link"></span></a>Wasm utilities</h3>
+
+<p>Some utilities developed for internal usage specific to Ewasm were extracted and published to benefit the wider Wasm ecosystem:</p>
+
+<ul>
+  <li>
+<a href="https://github.com/wasmx/wasm-chisel">Wasm Chisel</a>: Some useful utilities to transform WebAssembly binaries, with feasures such as: <code class="language-plaintext highlighter-rouge">remapimports</code>, <code class="language-plaintext highlighter-rouge">trimexports</code>, <code class="language-plaintext highlighter-rouge">snip</code>, <code class="language-plaintext highlighter-rouge">deployer</code>, etc.</li>
+  <li>
+<a href="https://github.com/wasmx/qimalloc">qimalloc</a>: Quick Incremental (Wasteful) Memory Allocator. This memory allocator will not release any memory. Its main use case is in short-lived environment, such as WebAssembly binaries.</li>
+  <li>
+<a href="https://github.com/wasmx/wasm-profiler">Wasm Profiler</a>: Utilities for profiling WebAssembly binaries</li>
+</ul>
+
+<h3 id="metering">
+<a class="anchor" href="#metering" aria-hidden="true"><span class="octicon octicon-link"></span></a>Metering</h3>
+
+<p>EVM comes with gas metering out-of-the-box to put a cap on the resources a node is expected to spend on a transaction. Wasm has no such notion by default. <a href="https://github.com/ewasm/wasm-metering">Wasm-metering</a> was the first attempt at introducing metering to Wasm. Since then various alternatives have been explored and compared, including:</p>
+
+<ul>
+  <li>Upperbound</li>
+  <li>Symbolic metering</li>
+  <li>Metering Injection</li>
+  <li>Atomic Metering
+    <ul>
+      <li>Bounded Loop Finder?</li>
+      <li>Taint Analysis</li>
+    </ul>
+  </li>
+  <li>Wasm BluePrint</li>
+  <li>Metering by counting cycles in <a href="https://github.com/riscv-boom/riscv-boom">Boom</a>
+    <ul>
+      <li>https://github.com/poemm/assembles</li>
+    </ul>
+  </li>
+</ul>
+
+<p>To learn more about the design considerations for metering see <a href="https://github.com/ewasm/design/blob/master/metering.md">here</a>.</p>
+
+<h2 id="evm">
+<a class="anchor" href="#evm" aria-hidden="true"><span class="octicon octicon-link"></span></a>EVM</h2>
+
+<ul>
+  <li>
+<a href="https://github.com/ethereum/evmone">evmone</a>: Fast Ethereum Virtual Machine implementation</li>
+  <li>
+<a href="https://github.com/ethereum/EVMC">EVMC</a>: Ethereum Client-VM Connector API
+    <ul>
+      <li>evmc-geth integration</li>
+      <li>evmc-aleth integration</li>
+    </ul>
+  </li>
+  <li>
+<a href="https://notes.ethereum.org/@axic/evm384">EVM384</a>: An extension to the EVM which we hope will allow the implementation of fast BLS12-381 and potentially other cryptographic operations in EVM
+    <ul>
+      <li><a href="https://ethereum-magicians.org/t/evm384-feedback-and-discussion/4533">Discussion</a></li>
+      <li>
+<a href="https://github.com/poemm/EVMcurves">EVMCurves</a>: An experiment to implement the BLS12-381 pairing operation in EVM with the proposed EVM384 extension</li>
+    </ul>
+  </li>
+  <li>
+<a href="https://github.com/axic/daytona">Daytona</a>: An EVMC compatible Ethereum VM kit. It aims to support a variety of VM implementations written in Rust, such as Parity’s, CitaVM, SputnikVM, SputnikVM (fork), evm-rs (discontinued), evm-rs (fork) and rust-evm.</li>
+</ul>
+
+<h2 id="eth1x">
+<a class="anchor" href="#eth1x" aria-hidden="true"><span class="octicon octicon-link"></span></a>Eth1x</h2>
+
+<ul>
+  <li>
+<strong>Witness format</strong>: Collaboration with other Eth1x teams with the goal of producing a well-specced witness format:
+    <ul>
+      <li>Formalization Review by Paul</li>
+      <li>Witness spec</li>
+      <li>Witness tests/Test Generation <a href="https://github.com/poemm/eth_witness_experiments">Tool</a>
+</li>
+      <li>
+<a href="https://github.com/gballet/multiproof-rs">multiproof-rs</a>: A Rust implementation of Alexey Akhunov’s multiproof algorithm</li>
+    </ul>
+  </li>
+  <li>
+<strong>EVM Code Merkleization</strong>: Experiments with the goal of reducing stateless block witness sizes by splitting contracts into chunks and merkleizing those chunks. These experiments have produced the following:
+    <ul>
+      <li>
+<a href="https://eips.ethereum.org/EIPS/eip-2926">EIP-2926</a>: Chunk-Based Code Merkleization</li>
+      <li><a href="https://github.com/ewasm/biturbo/pull/64">JS implementation</a></li>
+      <li><a href="https://github.com/hugo-dc/code-chunks/">Python implementation</a></li>
+      <li><a href="https://github.com/s1na/go-ethereum/tree/code-merkleization">Geth integration</a></li>
+    </ul>
+  </li>
+  <li>
+<strong>EVM Bytecode compression</strong>: Experiments around compressing EVM bytecode</li>
+  <li>
+<strong>Light client sync</strong>: An effort to improve the block header sync for light clients by employing techniques like FlyClient:
+    <ul>
+      <li><a href="https://ethresear.ch/t/state-of-block-header-sync-in-light-clients/8047">Survey of existing work</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="eth-20">
+<a class="anchor" href="#eth-20" aria-hidden="true"><span class="octicon octicon-link"></span></a>Eth 2.0</h2>
+
+<ul>
+  <li>
+<a href="https://github.com/axic/eth2-deposit-contract">Deposit contract</a>: A port of the Vyper Eth 2.0 deposit contract to Solidity which was deployed to <a href="https://etherscan.io/address/0x00000000219ab540356cbb839cbe05303d7705fa">mainnet</a>.</li>
+  <li>
+<strong>Eth1x64</strong>: Exploration the idea of “putting eth1 on each shard” on Eth 2.0, with the goal of designing a cross-shard protocol between “Eth1 shards” with least invasive means to the EVM:
+    <ul>
+      <li><a href="https://ethresear.ch/t/the-eth1x64-experiment/7195">The Eth1x64 experiment</a></li>
+      <li><a href="https://ethresear.ch/t/eth1x64-variant-1-apostille/7365">Eth1x64 Variant 1 “Apostille”</a></li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="phase-2">
+<a class="anchor" href="#phase-2" aria-hidden="true"><span class="octicon octicon-link"></span></a>Phase 2</h3>
+
+<p>Phase 2 brings execution to the data shards introduced in phase 1. We explored various designs for state execution on the shards, communication between the shards, etc. A notable project is <a href="https://github.com/ewasm/scout">Scout</a> which facilitated prototyping and testing Wasm-based Execution Environments (EEs). Scout was first implemented in Rust and later ported to various other languages such as <a href="https://github.com/poemm/scout_wabt.cpp">C++</a> and <a href="https://github.com/ewasm/scout.ts">Typescript</a>.</p>
+
+<h4 id="execution-environments-ees">
+<a class="anchor" href="#execution-environments-ees" aria-hidden="true"><span class="octicon octicon-link"></span></a>Execution Environments (EEs)</h4>
+
+<p>Scout enabled us and other researchers to rapidly prototype and assess the feasiblity of various EEs:</p>
+
+<ul>
+  <li>
+<a href="https://github.com/poemm/stateless_kmm_token">Stateless KMM Token</a>: Stateless merkle token with optimal witnesses in Wasm</li>
+  <li>
+<a href="https://github.com/jwasinger/groth16-verify-wasm">Groth16 verifier</a>: Groth16 proof verifier written in Webassembly</li>
+  <li>
+<a href="https://github.com/jwasinger/daiquiri">Daiquiri</a>: Eth2 Coin Mixer EE</li>
+  <li>
+<a href="https://github.com/ewasm/biturbo">Biturbo</a>: Eth1 EE using Turboproofs</li>
+  <li>
+<a href="https://github.com/jwasinger/mimc-merkle-proof">MiMC Merkle Tree</a>: Binary merkle tree using MiMC hash function, implemented in Assemblyscript</li>
+  <li>
+<a href="https://github.com/jwasinger/mimc-wasm">MiMC Wasm</a>: Implementation of ZKSNARK-friendly MiMC-Feistel hash function in Assemblyscript</li>
+  <li>
+<a href="https://github.com/cdetrio/scout.ts/tree/turbo-mpas">turbo-mpas</a>: Assemblyscript code to verify a Merkle branch</li>
+  <li>
+<a href="https://github.com/ewasm/scout/pull/11">SMPT</a>: Stateless MPT token EE using Parity Ethereum’s MPT Rust implementation</li>
+  <li>
+<a href="https://github.com/ewasm/scout/pull/22">STARK Verifier</a>: STARK verification of a number of MIMC rounds expressed inside an EE</li>
+  <li>
+<a href="https://github.com/s1na/smt">SMT</a>: Sparse merkle tree implementation in Typescript</li>
+</ul>
+
+<h2 id="wasm-interpreters">
+<a class="anchor" href="#wasm-interpreters" aria-hidden="true"><span class="octicon octicon-link"></span></a>Wasm Interpreters</h2>
+
+<ul>
+  <li>
+<a href="https://github.com/wasmx/fizzy">Fizzy</a>: Fizzy aims to be a fast, deterministic, and pedantic WebAssembly interpreter written in C++</li>
+  <li>
+<a href="https://github.com/poemm/pywebassembly">PyWebAssembly</a>: Implementation of the WebAssembly spec in Python</li>
+  <li>
+<strong>CppWebAssembly</strong>: C++ implementation of the WebAssembly spec</li>
+</ul>
+
+<h2 id="benchmarking-report">
+<a class="anchor" href="#benchmarking-report" aria-hidden="true"><span class="octicon octicon-link"></span></a>Benchmarking Report</h2>
+
+<p>The benchmarking report will be the culmination of a big undertaking which involved benchmarking and comparing various Wasm engines (interpreters and compilers), EVM engines, optimizing both EVM and Wasm bytecode, measuring metering overhead, etc. The full report is not yet available, however the tools to run these benchmarks and the majority of charts are available <a href="https://github.com/ewasm/benchmarking">here</a>.</p>
+
+	    
+    </div>
+  </div>
+</div>
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/ewasm-portal/feed.xml" title="RSS"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">RSS</span>
+              </a>
+            </li><li><a href="mailto:solidity@ethereum.org" title="Email me"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">Email me</span>
+              </a>
+            </li><li><a href="https://github.com/ewasm" title="GitHub"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">GitHub</span>
+              </a>
+            </li><li><a href="https://gitter.im/ethereum/ewasm" title="Gitter"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-comments fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">Gitter</span>
+              </a>
+            </li><li><a href="https://twitter.com/ethereumWasm" title="Twitter"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">Twitter</span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+        Ewasm Team
+        &nbsp;&bull;&nbsp;
+        2020
+
+        
+        &nbsp;&bull;&nbsp;
+        <a href="https://ewasm.ethereum.org">ewasm.ethereum.org</a>
+        
+
+        &nbsp;&bull;&nbsp;
+        <a href="/archive/">Blog Archive</a>
+
+        
+        
+      </p>
+        <!-- Please don't remove this, keep my open source work credited :) -->
+        <p class="theme-by text-muted">
+          Theme by
+          <a href="http://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/ewasm-portal/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    
+    
+	<script src="/ewasm-portal/js/bootstrap.min.js"></script>
+    
+  
+    
+    
+	<script src="/ewasm-portal/js/main.js"></script>
+    
+  
+
+
+
+  
+  </body>
+</html>

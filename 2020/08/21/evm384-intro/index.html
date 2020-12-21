@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>EVM384 - Can we do Fast Crypto in EVM? | Ewasm</title>
+
+  <meta name="author" content="Ewasm Team" />
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Ewasm - Collection of articles about the Solidity language and compiler" href="/ewasm-portal/feed.xml" />
+
+  
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/ewasm-portal/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/ewasm-portal/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/ewasm-portal/css/main.css" />
+    
+      <link rel="stylesheet" href="/ewasm-portal/css/search.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="EVM384 - Can we do Fast Crypto in EVM?" />
+  
+
+   
+  <meta property="og:description" content="EVM384 – Can we do Fast Crypto in EVM? Text jointly authored (in reverse alphabetic order) by Paul Dworzanski, Jared Wasinger, Casey Detrio, and Alex Beregszaszi, with help from the entire Ewasm team. Originally posted at https://notes.ethereum.org/@axic/evm384. For feedback there is an EthMagicians topic. Introduction This is a follow-up from...">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="https://ewasm.ethereum.org/2020/08/21/evm384-intro/" />
+  <link rel="canonical" href="https://ewasm.ethereum.org/2020/08/21/evm384-intro/" />
+  
+
+  
+  <meta property="og:image" content="/img/ewasm2d.png" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="EVM384 - Can we do Fast Crypto in EVM?" />
+  
+
+  
+  <meta name="twitter:description" content="EVM384 – Can we do Fast Crypto in EVM? Text jointly authored (in reverse alphabetic order) by Paul Dworzanski, Jared Wasinger, Casey Detrio, and Alex Beregszaszi, with help from the entire Ewasm team. Originally posted at https://notes.ethereum.org/@axic/evm384. For feedback there is an EthMagicians topic. Introduction This is a follow-up from...">
+  
+
+  
+  <meta name="twitter:image" content="https://ewasm.ethereum.org/favicon.png" />
+  
+
+  
+
+  <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+
+</head>
+
+
+  <body>
+
+    
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="https://ewasm.ethereum.org">Ewasm</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/ewasm-portal/blog/">Blog</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/ewasm-portal/projects/">Projects</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/ewasm-portal/publications/">Publications</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/ewasm-portal/faq/">FAQ</a>
+
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+
+  
+
+  <header class="header-section ">
+  
+
+  <div class="intro-header no-img">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          <div class="post-heading">
+            <h1>EVM384 - Can we do Fast Crypto in EVM?</h1>
+            
+        
+            
+              <span class="post-meta">Posted by Ewasm Team on August 21, 2020</span>
+              <ul class="post-category-list">
+                
+                <li>
+                  <a
+                    href="/ewasm-portal/category/releases/"
+                    class="category-releases">
+                    Releases
+                  </a>
+                </li>
+                
+              </ul>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </header>
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+      
+
+      <article role="main" class="blog-post">
+        <h1 id="evm384--can-we-do-fast-crypto-in-evm">EVM384 – Can we do Fast Crypto in EVM?</h1>
+
+<p>Text jointly authored (in reverse alphabetic order) by Paul Dworzanski, Jared Wasinger, Casey Detrio, and Alex Beregszaszi, with help from the entire <a href="https://github.com/ewasm">Ewasm</a> team.  Originally posted at https://notes.ethereum.org/@axic/evm384.</p>
+
+<p>For feedback there is an <a href="https://ethereum-magicians.org/t/evm384-feedback-and-discussion/4533">EthMagicians topic</a>.</p>
+
+<h3 id="introduction">Introduction</h3>
+
+<p>This is a follow-up from the <a href="https://notes.ethereum.org/@axic/evm384-preview">original proposal/specification</a>, with initial results.</p>
+
+<p>We give a history of crypto in EVM and precompiles. With lessons learned, we prototype an extension to the EVM, called EVM384, which we hope will allow the implementation of fast BLS12-381 operations in EVM. We measure performance. Results show potential for fast BLS12-381 operations in pure EVM384.</p>
+
+<p>The inspiration for this work came from discoveries made while benchmarking various cryptographic algorithms across WebAssembly (Wasm) engines and EVM interpreters, as part of the <a href="https://github.com/ewasm/benchmarking">Ewasm Benchmarking</a> project.</p>
+
+<h3 id="history-of-precompiles">History of precompiles</h3>
+
+<p>In 2014, the EVM, with <a href="https://web.archive.org/web/20140203145850/http://wiki.ethereum.org/index.php/Ethereum_Script">influence from Bitcoin Script</a>, was designed with 256-bit words and 256-bit arithmetic operations “to facilitate the Keccak-256 hash scheme and elliptic-curve computations” (Yellow Paper, section 9.1).</p>
+
+<p>This early version contained a number of high-level and complex instructions, <code class="language-plaintext highlighter-rouge">SHA3</code>, <code class="language-plaintext highlighter-rouge">SHA256</code>, <code class="language-plaintext highlighter-rouge">ECMUL</code>, <code class="language-plaintext highlighter-rouge">ECSIGN</code>, <code class="language-plaintext highlighter-rouge">ECRECOVER</code>, to name a few. They were <a href="https://github.com/ethereum/yellowpaper/commit/a1ed4cbbcefaa5de9ab3e3ba647a73ac97987472">subsequently moved</a> to form the first set of precompiles, with the exception of <code class="language-plaintext highlighter-rouge">SHA3</code>, which remained as an opcode, because it was <a href="https://github.com/ethereum/EIPs/issues/31#issuecomment-159577272">deemed “more important”</a> than the others.</p>
+
+<p>The complexity of the EVM was recognised early on and described well in this <a href="https://blog.ethereum.org/2014/02/03/introducing-ethereum-script-2-0/">blog post</a>:</p>
+<blockquote>
+  <p>Too many opcodes – looking at the specification as it appears today, ES1 <em>[Ethereum Script 1 aka EVM – editor]</em> now has exactly 50 opcodes – less than the 80 opcodes found in Bitcoin Script, but still far more than the theoretically minimal 4-7 opcodes needed to have a functional Turing-complete scripting language. […] Other opcodes, however, are excessive, and complex; as an example, consider the current definition of SHA256 or ECVERIFY. With the way the language is designed right now, that is necessary for efficiency; otherwise, one would have to write SHA256 in Ethereum script by hand, which might take many thousands of BASEFEEs <em>[gas – editor]</em>. But ideally, there should be some way of eliminating much of the bloat.</p>
+</blockquote>
+
+<p>In the release of Frontier in 2015, the initial precompiles were secp256k1 signature recovery (ECRECOVER), hash functions (SHA256 and RIPEMD160), and memory copying aka identity (ID) prompted by the cost of copying via <code class="language-plaintext highlighter-rouge">MLOAD</code>+<code class="language-plaintext highlighter-rouge">MSTORE</code>.</p>
+
+<p>In early 2016, the first new precompile, <a href="https://github.com/ethereum/EIPs/issues/74">RSAVERIFY</a>, was suggested for RSA signature verification.  This prompted the proposal of <a href="https://github.com/ethereum/EIPs/issues/101">five precompiles for performing big integer arithmetic</a> as a more generalised option.  Some asked for justification for <a href="https://github.com/ethereum/EIPs/issues/101#issuecomment-216205472">why it can not be implemented in the EVM</a>. This discussion eventually resulted in the introduction of only one of them, MODEXP, for modular exponentation.</p>
+
+<p>The same year another early suggestion was <a href="https://github.com/ethereum/EIPs/issues/129">BLAKE2B</a>.  For comparison it included a Solidity implementation, showing the excessive gas requirements, at the time, when the EVM had no bitshifting instructions. Eventually, after much debate and over 3 years later, an alternate version of this precompile was introduced.</p>
+
+<p>Still in 2016, a <a href="https://github.com/ethereum/EIPs/issues/180">SHA1 precompile</a> was proposed for on-chain TLS, SSL, and PGP use-cases. Surprisingly, it was discovered that a reasonably-priced SHA1 can be implemented in EVM. So the precompile for SHA1 was not needed! We can do some hashing in pure EVM!</p>
+
+<p>In 2017, the Byzantium hard fork introduced precompiles for BN128 curve operations (ECADD, ECMUL, and ECPAIRING), and the aforementioned MODEXP.</p>
+
+<p>In 2019, <a href="https://medium.com/aztec-protocol/huffing-for-crypto-with-weierstrudel-9c9568c06901">Weierstrudel was announced</a> as an implementation of ECMUL in pure EVM. Surprisingly, Weierstrudel has nearly the same gas cost as the ECMUL precompile, and costs much less than multiple ECMULs. Was the ECMUL precompile really needed?</p>
+
+<p>Precompiles became a mechanism to introduce complicated or expensive cryptography into the EVM. But precompile proposal discussions show that they are met with resistance. Adding complexity to a consensus system is controversial. There have been requests to establish a need, and to demonstrate that it can’t be done in pure EVM. Successful precompiles have required not only a strong specification, a strong need, and strong evidence that this is a last resort, but also convincing client developers that the precompile is worth the risks and effort. So few precompiles have been accepted, or even proposed.</p>
+
+<p>In the same year, <a href="https://github.com/ethereum/evmone">evmone</a> was released as a fast EVM implementation. New speed-records were set for every EVM bytecode we benchmarked. As of 2020, some of the principles of the evmone implementation are being considered for adoption by go-ethereum.</p>
+
+<p>With access to much better tooling (<a href="https://github.com/aztecprotocol/huff">Huff</a>, <a href="https://solidity.readthedocs.io/en/v0.7.0/yul.html">Yul</a>), much faster EVMs (evmone), and successful prior experiments (Weierstrudel, SHA1), we ask the questions: Can pure EVM implementations of ECRECOVER, ECADD, or ECPAIRING have runtime performance competitive with the native precompiles? How about other precompiles? If so, can we deprecate precompiles entirely?</p>
+
+<p>Unfortunately, the answer depends on which crypto. Much of crypto has runtime dominated by bigint arithmetic or bit manipulation for hashing. If we are lucky and have EVM opcodes to match these bottlenecks, then we don’t need a precompile. So it may be wise to add new EVM opcodes for crypto primitives, which would increase the scope of fast crypto in pure EVM. These new EVM opcodes should be generic and reusable by different applications.</p>
+
+<p>An example of such a primitive was the the addition of bitshifting opcodes <code class="language-plaintext highlighter-rouge">SHL</code>, <code class="language-plaintext highlighter-rouge">SHR</code>, and <code class="language-plaintext highlighter-rouge">SAR</code>.  These made the <a href="https://github.com/ewasm/benchmarking/blob/master/evm/input_data/evmcode/blake2b_huff.huff">performant Blake2b EVM implementation</a> viable for certain use cases. It had the potential to be useful for a wider set of use cases, <a href="https://github.com/ethereum/pm/blob/master/All%20Core%20Devs%20Meetings/Meeting%2062.md#330-eip-2024-proposal-for-supporting-blake2b">pending on further EVM improvements</a>.</p>
+
+<p>For elliptic curve cryptography, modular multiplication is often the main bottleneck. Most implementations rely on the efficient <a href="https://en.wikipedia.org/wiki/Montgomery_modular_multiplication">Montgomery modular multiplication</a> algorithm. Unfortunate for the elliptic curve use case, the <code class="language-plaintext highlighter-rouge">MULMOD</code> instruction uses a more generic and expensive algorithm. Introducing support for Montgomery perhaps could cover this bottleneck and expand the usability of the EVM for fast cryptography.</p>
+
+<h3 id="what-about-bls12-381">What about BLS12-381?</h3>
+
+<p>Supporting (some) operations on the <a href="https://electriccoin.co/blog/new-snark-curve/">BLS12-381</a> curve in Ethereum would be beneficial for various use cases, including certain zero-knowledge protocols, as well as better interoperability between Eth1 and Eth2.</p>
+
+<p>Adding a precompile has been proposed in <a href="https://eips.ethereum.org/EIPS/eip-1962">EIP-1962</a> and <a href="https://eips.ethereum.org/EIPS/eip-2537">EIP-2537</a>. It is an open question whether it is feasible to create a performant implementation of BLS12-381 in EVM using opcodes for fast Montgomery arithmetic.</p>
+
+<p>Implementing the BLS12-381 pairing algorithm in EVM is a large project. Luckily, this pairing is available in Wasm through <a href="https://github.com/iden3/wasmsnark">wasmsnark</a>. While Wasm is not EVM, it may be a reasonable approximation of EVM for the purposes of identifying major bottlenecks.  Through profiling this wasmsnark code, we identified the bottlenecks, defined a <a href="#Appendix-Bigint-API-for-WebAssembly">set of native functions</a> for these bottlenecks, and modified both wasmsnark and the <a href="https://github.com/webassembly/wabt">wabt</a> Wasm interpreter to make use of them.</p>
+
+<p>All measurements are compared to a native Rust <a href="https://github.com/jwasinger/eip1962-bls12-381-bench/blob/dev/src/main.rs">implementation based on EIP-1962</a>. This first experiment will inform and motivate the investigation of fast pairings in EVM384.</p>
+
+<hr />
+<p><img src="https://raw.githubusercontent.com/ewasm/benchmarking/evm384-writeup/images/bignums-bls12-pairings-wabt-vs-native-exec-startup-time.png" alt="" /></p>
+
+<p><strong>Figure 1.</strong> Runtimes of BLS12-381 pairing check. Including:</p>
+<ul>
+  <li><em>rust-native</em> - the compiled Rust EIP-2537 implementation;</li>
+  <li><em>wabt-no-bignums</em> - a Wasm interpreter, Wabt, using code generated by wasmsnark;</li>
+  <li><em>wabt-with-bignums</em> - the same interpreter and bytecode, but using calls to native functions for bigint arithmetic.</li>
+</ul>
+
+<p><strong>Note</strong>: startup time accounts for the parsing and validation of wasm and only occurs once.</p>
+
+<hr />
+
+<p>Results from Figure 1 show that Wasm can perform within 2x overhead of native.  This dramatic speedup for an interpreter warrants a similar experiment with EVM.</p>
+
+<h3 id="evm384">EVM384</h3>
+
+<p>EVM384 introduces new instructions for the EVM, all of which operate on 384-bit numbers: MULMODMONT384, ADDMOD384, and SUBMOD384. This was previously described in the <a href="https://notes.ethereum.org/@axic/evm384-preview">original proposal/specification</a>. They cover the same three bottlenecks as with Wasm above.</p>
+
+<p>At this time we do not present a final proposal of these instructions, however below are our findings with different variations.</p>
+
+<p>Given the EVM operates on 256-bit stack items, it is not possible to represent 384-bit values in a single stack slot. There are various options with different trade-offs for dealing with this problem. Some possibilities include:</p>
+<ul>
+  <li>a) using two stack items for each 384-bit number,</li>
+  <li>b) storing each 384-bit number in memory and using memory pointers,</li>
+  <li>c) reserving a region in memory, treating it as a stack, and using a single memory offset pointing to the top of this stack.</li>
+</ul>
+
+<p>Our decision was partially driven by the need to implement BLS12-381 using these instructions. To avoid dealing with excessive number of stack items, we opted for prototyping option b).</p>
+
+<p>Our first interface originally clobbered an input with the output. So we made a second version where the output has its own memory offset.</p>
+
+<p><strong>Interface version 1 (evm384-v1)</strong>: output clobbers leftmost input.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>addmod384(x, y, mod)
+opcode: 0xc0
+
+submod384(x, y, mod)
+opcode: 0xc1
+
+mulmodmont384(x, y, mod, r_inv)
+opcode: 0xc2
+</code></pre></div></div>
+
+<p><strong>Interface version 2 (evm384-v2)</strong>: output has its own offset.</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>addmod384(out, x, y, mod)
+opcode: 0xc0
+
+submod384(out, x, y, mod)
+opcode: 0xc1
+
+mulmodmont384(out, x, y, mod, r_inv)
+opcode: 0xc2
+</code></pre></div></div>
+
+<p>Our convention (borrowed from Yul) is that the leftmost argument is the top of the stack. Each argument is a memory offset, except <code class="language-plaintext highlighter-rouge">r_inv</code> which is a 64-bit integer on the stack. Both <code class="language-plaintext highlighter-rouge">mod</code> and <code class="language-plaintext highlighter-rouge">r_inv</code> are curve-specific constants. These instructions will read 48-bytes from memory offsets at <code class="language-plaintext highlighter-rouge">x</code> and <code class="language-plaintext highlighter-rouge">y</code> and store a 48-byte output at <code class="language-plaintext highlighter-rouge">out</code>.</p>
+
+<p>Every instruction of the EVM handling memory offsets must also ensure that memory is expanded to the highest offset, and the execution is charged enough gas to do so. We hypothesized the memory checking overhead of these variants is significant, and decided to approximate the stack-only option – variant a) above – by removing the memory expansion check done in the instructions of evm384-v2. We call this version <strong>evm384-v3</strong>.</p>
+
+<p>We implemented these versions in <a href="https://github.com/ethereum/evmone">evmone</a>, and <a href="https://github.com/ethereum/solidity">Solidity</a> to allow for compilation of Yul and inline assembly with these instructions:</p>
+<ul>
+  <li><a href="https://github.com/ethereum/evmone/tree/v0.5.0-evm384-v1">evmone-evm384-v1</a></li>
+  <li><a href="https://github.com/ethereum/evmone/tree/v0.5.0-evm384-v2">evmone-evm384-v2</a></li>
+  <li><a href="https://github.com/ethereum/evmone/tree/v0.5.0-evm384-v2-unsafe">evmone-evm384-v3</a></li>
+  <li><a href="https://github.com/ethereum/solidity/tree/evm384">solidity-evm384-v1</a></li>
+  <li><a href="https://github.com/ethereum/solidity/tree/evm384-v2">solidity-evm384-v2</a> (this can be used for both evm384-v2 and evm384-v3)</li>
+</ul>
+
+<h3 id="the-synthetic-loop">The synthetic loop</h3>
+
+<p>Implementing and optimizing the BLS12-381 pairing operation in pure EVM384 bytecode is a difficult task for anyone not well versed in implementing efficient elliptic curve cryptography.</p>
+
+<p>Instead, we developed and implemented a simpler “synthetic” pairing algorithm which in our opinion is an approximation of the actual pairing algorithm (see the <a href="#Appendix-Synthetic-Loop-Algorithm">appendix</a> for a definition).</p>
+
+<p>Because we use approximations, we first compare the runtime of the synthetic pairing and the actual pairing algorithm, both generated using wasmsnark.</p>
+
+<hr />
+<p><img src="https://raw.githubusercontent.com/ewasm/benchmarking/evm384-writeup/images/evm384-wasm-pairings-vs-synth-loop.png" alt="" /></p>
+
+<p><strong>Figure 2.</strong> Comparison of BLS12-381 pairing runtime with the synthetic loop. Both bytecodes were generated by wasmsnark and executed in wabt with bigint host functions.</p>
+
+<hr />
+
+<p>In Figure 2, our synthetic algorithm reasonably approximates the actual pairing runtime. But the error is non-negligible. We will use <code class="language-plaintext highlighter-rouge">wasmsnark_pairing_runtime / wasm_synthetic_pairing_runtime ~= 1.25</code> as an <code class="language-plaintext highlighter-rouge">adjustment_factor</code>. Later we need to apply this <code class="language-plaintext highlighter-rouge">adjustment_factor</code> to the numbers produced on EVM384 for a fair comparison with native and Wasm.</p>
+
+<p>Next, we implement the same synthetic loop algorithm in EVM384. This gives us a good opportunity to compare our three EVM384 interfaces above. Our choice of language was Yul for its simplicity and closeness to the EVM. We have considered experimenting with the <a href="https://solidity.readthedocs.io/en/v0.6.8/yul.html#yul-optimizer">vast number of Yul optimizer settings</a> of Solidity 0.6.8, but due to time constraints only used the standard set of optimizations. There is plenty of room to improve both the Yul source code and to find an appropriate set of optimizations.</p>
+
+<hr />
+<p><img src="https://raw.githubusercontent.com/ewasm/benchmarking/evm384-writeup/images/evm384-synth-loop-v1-v2-v3.png" alt="" /></p>
+
+<p><strong>Figure 3.</strong> Runtimes of the synthetic loop on the different versions of EVM384 described above.</p>
+
+<hr />
+
+<p>Figure 3 confirms our expectations about the different EVM384 versions. In evm384-v1, the clobbering of the output requires extra memory copying, causing a slowdown. In evm384-v2, the overhead of memory checking and expansion is significant. With evm384-v3 this bottleneck of memory checking is removed, resulting in the shortest runtimes.</p>
+
+<h3 id="summarizing-the-results">Summarizing the results</h3>
+
+<p>We compare native, Wasm, and the fastest EVM benchmark from above.</p>
+
+<hr />
+<p><img src="https://raw.githubusercontent.com/ewasm/benchmarking/evm384-writeup/images/evm384-wasm-native-pairings-vs-adjusted-synth-loop.png" alt="" /></p>
+
+<p><strong>Figure 4.</strong> Runtimes from pairings in Rust from Figure 1, pairings in Wasm from Figure 2, and the fastest EVM synthetic loop from Figure 3 after applying the <code class="language-plaintext highlighter-rouge">adjustment_factor</code> computed from Figure 2.</p>
+
+<hr />
+
+<p>From Figure 4, our Wasm implementation is 2 times slower than native and our evmone approximation is 3 times slower than native. Keep in mind that these numbers are a first attempt, and there is a capacity to improve. But the goal of this experiment was to show the feasibility, and motivate the large effort of optimization, an iterative process.</p>
+
+<h3 id="conclusion">Conclusion</h3>
+
+<p>While this work is not complete, we believe our experiment shows a great potential for extending the EVM with primitives. This approach can be an alternative to the slow process of introducing precompiles.</p>
+
+<p>In its current form, EVM384 would already enable the implementation of various BLS12-curves (BLS12-381 as discussed above, and BLS12-377 proposed by <a href="https://eips.ethereum.org/EIPS/eip-1962">EIP-1962</a> and <a href="https://github.com/ethereum/EIPs/pull/2539">EIP-2539</a>). The primitivity of EVM384 also allows domain-specific optimizations, e.g. for specific curves, or specific operations on some curves. With a precompile the algorithm (including any optimizations) is decided at the time of its introduction, and improving them requires consensus.</p>
+
+<p>As evidenced by the past couple of years, elliptic curve cryptography is a rapidly evolving space. Despite BLS12-381 being a comparatively young curve, first described in 2017, it is already gaining large traction. Many of the zero knowledge systems currently in operation are using the BN128 curve, added to Ethereum in 2017. Only in the short span of 3 years, many new zero knowledge systems are keen on using BLS12-381. It is prudent to expect new, and better, curves will be devised in the coming years, and we should not want to introduce specific precompiles for each of them. In our opinion, EVM384 could serve as a template for EVM512, EVM768, etc. covering many systems in the future.</p>
+
+<p>As shown with the different EVM384 variants, small and straightforward optimisations can manifest in large gains. We see potential for reducing the performance gap even more, compared to WebAssembly and native.</p>
+
+<p>For best results, a collaboration between experts with background in cryptography, EVM, and various optimization techniques would be beneficial. This involves exploring different algorithms for the desired curve operations; different EVM384 interfaces, including the fully stack-based option and perhaps new instructions; potentially trying out other languages besides Yul.</p>
+
+<p>As a next step we suggest a working implementation of BLS12-381 pairing and multiexponentiation (those defined as <code class="language-plaintext highlighter-rouge">BLS12_PAIRING</code>, <code class="language-plaintext highlighter-rouge">BLS12_G1MULTIEXP</code>, and <code class="language-plaintext highlighter-rouge">BLS12_G2MULTIEXP</code> in <a href="https://eips.ethereum.org/EIPS/eip-2537">EIP-2537</a>) to be implemented.  This would allow for experimenting and finding an appropriate EVM384 interface, and serve as a basis for a candidate EIP.</p>
+
+<p>Our team would be open to collaboration with interested parties.</p>
+
+<h3 id="future-work-ideas">Future work ideas</h3>
+
+<p>Some potential improvements we came across include:</p>
+<ul>
+  <li><strong>MULMODMONT384 optimizations:</strong> A slightly less generic <a href="https://hackmd.io/@zkteam/modular_multiplication">mulmodmont limited to 383-bits</a> gives a ~10% speedup over the current version.</li>
+  <li><strong>Split primitives:</strong> We can explore breaking <strong>MULMODMONT384</strong> into opcodes for <strong>MONTREDUCE384</strong> and <strong>MUL384</strong>, which alows supranational’s <a href="https://github.com/supranational/blst/blob/master/src/fp12_tower.c#L21-L25">bls12-381 optimization</a> giving a ~10% speedup.</li>
+  <li><strong>Fused primitives:</strong> Analogous to fused multiply-add, we can similarly fuse primitives to reduce the number of executed opcodes. We can take this far by fusing many operations together, like an opcode for <code class="language-plaintext highlighter-rouge">f6m_mul</code> in wasmsnark. But these fused primitives are less generic.</li>
+</ul>
+
+<h3 id="notes">Notes</h3>
+
+<p>The above work was conducted as part of the <a href="https://github.com/ewasm/benchmarking">Ewasm benchmarking project</a>. This benchmarking framework was used to generate the results on an Azure VM (Standard D4s v3, 4 x Intel Xeon E5-2673 @ 2.30GHz, 16 GiB memory) and can be reproduced using the instructions found within.</p>
+
+<h3 id="appendix-synthetic-loop-algorithm">Appendix: Synthetic Loop Algorithm</h3>
+
+<p>The synthetic loop was designed to approximate the workload of an actual BLS12-381 pairing, while being easy to implement. A profile of the two-pairing benchmark on wasmsnark to count the number of calls to the three primary bignum host functions showed 23678 calls to <code class="language-plaintext highlighter-rouge">f1m_mul</code>, 75565 calls to <code class="language-plaintext highlighter-rouge">f1m_add</code>, and 35891 calls to <code class="language-plaintext highlighter-rouge">f1m_sub</code>.</p>
+
+<p>To find an algorithm that would be easy to implement, we looked for a relatively simple function in wasmsnark that is used in the pairing computation, and found<code class="language-plaintext highlighter-rouge">f6m_mul</code>. A profile of <code class="language-plaintext highlighter-rouge">f6m_mul</code> showed 18 calls to <code class="language-plaintext highlighter-rouge">f1m_mul</code>, 50 calls to <code class="language-plaintext highlighter-rouge">f1m_add</code>, and 20 calls to <code class="language-plaintext highlighter-rouge">f1m_sub</code>. These profiles show that the proportion of calls to the three bignum host functions for <code class="language-plaintext highlighter-rouge">f6m_mul</code> (20%, 57%, 23%) is close to the proportion of calls in the two-pairing benchmark (17%, 56%, 26%).</p>
+
+<p>The synthetic loop is simply a loop that calls <code class="language-plaintext highlighter-rouge">f6m_mul</code> 1350 times, so that the number of calls to the bignum host function <code class="language-plaintext highlighter-rouge">f1m_mul</code> in the synthetic loop (<code class="language-plaintext highlighter-rouge">18*1350 = 24300</code>) exceeds the number in the two-pairing benchmark (23678).</p>
+
+<p>For reference the synthetic loop is implemented in <a href="https://github.com/ewasm/scout.ts/blob/f6m_mul_loop-standalone/assembly/bls12-pairing/main.ts#L3-L69">Wasm</a> and <a href="https://github.com/ewasm/evm384_f6m_mul/blob/master/src/v2/benchmark.yul#L468-L483">Yul on EVM384</a>.</p>
+
+<h3 id="appendix-bigint-api-for-webassembly">Appendix: Bigint API for WebAssembly</h3>
+
+<p>We introduce three host functions under the <code class="language-plaintext highlighter-rouge">env</code> namespace:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">bignum_f1m_add(x:i32, y:i32, ret:i32)</code> (~= <code class="language-plaintext highlighter-rouge">ADDMOD384</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">bignum_f1m_sub(x:i32, y:i32, ret:i32)</code> (~= <code class="language-plaintext highlighter-rouge">SUBMOD384</code>)</li>
+  <li><code class="language-plaintext highlighter-rouge">bignum_f1m_mul(x:i32, y:i32, ret:i32)</code> (~= <code class="language-plaintext highlighter-rouge">MULMODMONT384</code>)</li>
+</ul>
+
+<p>Every argument listed is a 32-bit memory offset, and none of the functions return a value. The memory offsets are expected to contain 48-bytes (384-bits) in little endian order.</p>
+
+<p>This interface is very similar to evm384-v2, with the exception of <code class="language-plaintext highlighter-rouge">bignum_f1m_mul</code> has <code class="language-plaintext highlighter-rouge">mod</code> and <code class="language-plaintext highlighter-rouge">r_inv</code> values hardcoded for the BLS12-381 curve.</p>
+
+<p>Note that the two-pairing wasmsnark benchmark uses four additional host functions (<code class="language-plaintext highlighter-rouge">bignum_int_add</code>, <code class="language-plaintext highlighter-rouge">bignum_int_sub</code>, <code class="language-plaintext highlighter-rouge">bignum_int_mul</code>, <code class="language-plaintext highlighter-rouge">bignum_int_div</code>). These four host functions give a small but non-negligible speedup when used in addition to the three host functions above. But for the purposes of comparison to EVM, these additional integer host functions are not as relevant because operations on EVM already operate using 256-bit widths versus 64-bit widths on wasm.</p>
+
+      </article>
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+
+      
+
+      <ul class="pager blog-pager">
+        
+        
+        <li class="next">
+          <a href="/ewasm-portal/2020/09/18/evm384-update2/" data-toggle="tooltip" data-placement="top" title="EVM384 - Update on the Interface">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+
+      
+        <div class="disqus-comments">
+          
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/ewasm-portal/feed.xml" title="RSS"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">RSS</span>
+              </a>
+            </li><li><a href="mailto:solidity@ethereum.org" title="Email me"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">Email me</span>
+              </a>
+            </li><li><a href="https://github.com/ewasm" title="GitHub"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">GitHub</span>
+              </a>
+            </li><li><a href="https://gitter.im/ethereum/ewasm" title="Gitter"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-comments fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">Gitter</span>
+              </a>
+            </li><li><a href="https://twitter.com/ethereumWasm" title="Twitter"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">Twitter</span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+        Ewasm Team
+        &nbsp;&bull;&nbsp;
+        2020
+
+        
+        &nbsp;&bull;&nbsp;
+        <a href="https://ewasm.ethereum.org">ewasm.ethereum.org</a>
+        
+
+        &nbsp;&bull;&nbsp;
+        <a href="/archive/">Blog Archive</a>
+
+        
+        
+      </p>
+        <!-- Please don't remove this, keep my open source work credited :) -->
+        <p class="theme-by text-muted">
+          Theme by
+          <a href="http://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/ewasm-portal/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    
+    
+	<script src="/ewasm-portal/js/bootstrap.min.js"></script>
+    
+  
+    
+    
+	<script src="/ewasm-portal/js/main.js"></script>
+    
+  
+
+
+
+  
+  </body>
+</html>

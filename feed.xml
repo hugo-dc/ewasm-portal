@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Ewasm</title>
+    <description>Collection of articles about the Solidity language and compiler</description>
+    <link>https://ewasm.ethereum.org</link>
+    <atom:link href="https://ewasm.ethereum.org/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>EVM384 - Update 3</title>
+        <description>
+          
+          Introduction This EVM384 update is a follow-up to the previous update. The discussion thread with more links is here. In this update, we compare runtimes for different endianness. We implement a major part of the pairing algorithm, the miller loop (up to a small part, explained below). Interface Endianness In...
+        </description>
+        <pubDate>Fri, 16 Oct 2020 00:00:00 +0000</pubDate>
+        <link>https://ewasm.ethereum.org/2020/10/16/evm384-update3/</link>
+        <guid isPermaLink="true">https://ewasm.ethereum.org/2020/10/16/evm384-update3/</guid>
+      </item>
+    
+      <item>
+        <title>EVM384 - Update on the Interface</title>
+        <description>
+          
+          Text jointly authored (in reverse alphabetic order) by Paul Dworzanski, Jared Wasinger, with help from the entire Ewasm team. This writeup was originally posted at https://notes.ethereum.org/@poemm/evm384-interface-update For feedback there is an EthMagicians topic. Introduction This is a follow-up on our previous document: EVM384 – Can we do Fast Crypto in...
+        </description>
+        <pubDate>Fri, 18 Sep 2020 00:00:00 +0000</pubDate>
+        <link>https://ewasm.ethereum.org/2020/09/18/evm384-update2/</link>
+        <guid isPermaLink="true">https://ewasm.ethereum.org/2020/09/18/evm384-update2/</guid>
+      </item>
+    
+      <item>
+        <title>EVM384 - Can we do Fast Crypto in EVM?</title>
+        <description>
+          
+          EVM384 – Can we do Fast Crypto in EVM? Text jointly authored (in reverse alphabetic order) by Paul Dworzanski, Jared Wasinger, Casey Detrio, and Alex Beregszaszi, with help from the entire Ewasm team. Originally posted at https://notes.ethereum.org/@axic/evm384. For feedback there is an EthMagicians topic. Introduction This is a follow-up from...
+        </description>
+        <pubDate>Fri, 21 Aug 2020 00:00:00 +0000</pubDate>
+        <link>https://ewasm.ethereum.org/2020/08/21/evm384-intro/</link>
+        <guid isPermaLink="true">https://ewasm.ethereum.org/2020/08/21/evm384-intro/</guid>
+      </item>
+    
+  </channel>
+</rss>

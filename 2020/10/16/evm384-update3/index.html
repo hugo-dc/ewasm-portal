@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>EVM384 - Update 3 | Ewasm</title>
+
+  <meta name="author" content="Ewasm Team" />
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="Ewasm - Collection of articles about the Solidity language and compiler" href="/ewasm-portal/feed.xml" />
+
+  
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/ewasm-portal/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/ewasm-portal/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/ewasm-portal/css/main.css" />
+    
+      <link rel="stylesheet" href="/ewasm-portal/css/search.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" />
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="EVM384 - Update 3" />
+  
+
+   
+  <meta property="og:description" content="Introduction This EVM384 update is a follow-up to the previous update. The discussion thread with more links is here. In this update, we compare runtimes for different endianness. We implement a major part of the pairing algorithm, the miller loop (up to a small part, explained below). Interface Endianness In...">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="https://ewasm.ethereum.org/2020/10/16/evm384-update3/" />
+  <link rel="canonical" href="https://ewasm.ethereum.org/2020/10/16/evm384-update3/" />
+  
+
+  
+  <meta property="og:image" content="/img/ewasm2d.png" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="EVM384 - Update 3" />
+  
+
+  
+  <meta name="twitter:description" content="Introduction This EVM384 update is a follow-up to the previous update. The discussion thread with more links is here. In this update, we compare runtimes for different endianness. We implement a major part of the pairing algorithm, the miller loop (up to a small part, explained below). Interface Endianness In...">
+  
+
+  
+  <meta name="twitter:image" content="https://ewasm.ethereum.org/favicon.png" />
+  
+
+  
+
+  <link rel="shortcut icon" type="image/png" href="/favicon.png"/>
+
+</head>
+
+
+  <body>
+
+    
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="https://ewasm.ethereum.org">Ewasm</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/ewasm-portal/blog/">Blog</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/ewasm-portal/projects/">Projects</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/ewasm-portal/publications/">Publications</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/ewasm-portal/faq/">FAQ</a>
+
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+
+  
+
+  <header class="header-section ">
+  
+
+  <div class="intro-header no-img">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+          <div class="post-heading">
+            <h1>EVM384 - Update 3</h1>
+            
+        
+            
+              <span class="post-meta">Posted by Ewasm Team on October 16, 2020</span>
+              <ul class="post-category-list">
+                
+                <li>
+                  <a
+                    href="/ewasm-portal/category/releases/"
+                    class="category-releases">
+                    Releases
+                  </a>
+                </li>
+                
+              </ul>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </header>
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+
+      
+
+      <article role="main" class="blog-post">
+        <h2 id="introduction">Introduction</h2>
+
+<p>This EVM384 update is a follow-up to the <a href="https://notes.ethereum.org/@poemm/evm384-interface-update">previous update</a>. The discussion thread with more links is <a href="https://ethereum-magicians.org/t/evm384-feedback-and-discussion/4533/7">here</a>.</p>
+
+<p>In this update, we compare runtimes for different endianness. We implement a major part of the pairing algorithm, the miller loop (up to a small part, explained below).</p>
+
+<h2 id="interface-endianness">Interface Endianness</h2>
+
+<p>In the <a href="https://notes.ethereum.org/@poemm/evm384-interface-update">last update</a>, we compared interfaces v2 through v7 for EVM384, and settled on interface v7. A remaining question was whether we want a little-endian encoding for EVM384 values. Perhaps we should use big-endian, like the rest of the EVM.</p>
+
+<p>We designed interface v8 to use big-endian values. We modified our v7 bytecode and evmone implementation to use this big-endian interface. Our results follow.</p>
+
+<p><img src="https://github.com/ewasm/benchmarking/raw/evm384-update-3-charts/charts/evm384-endianness.png" alt="" /></p>
+
+<p><strong>Figure 1.</strong> Runtimes of the f6m_mul synthetic pairing check using EVM384 versions 7 and 8.</p>
+
+<p>Version 8 has a slowdown because it reverses the byte ordering of all 384-bit inputs and outputs of EVM384 opcodes. This 1.18x slowdown is large enough for us to favor v7 over v8. A problem remains: to operate on parts of EVM384 values with big-endian EVM opcodes, one may have to reverse the endianness – if this becomes a significant bottleneck, a new <code class="language-plaintext highlighter-rouge">byteswap</code> EVM opcode could alleviate it. Please note however that, as an example, a pairing operation can be implemented on the little-endian interface with no byteswapping if the calldata is already in little-endian.</p>
+
+<h2 id="a-note-on-subgroup-checks-and-optimizations">A Note on Subgroup Checks and Optimizations</h2>
+
+<p>None of our pairing benchmarks, including from previous updates, consider subgroup checks. To be clear this includes the benchmark named <code class="language-plaintext highlighter-rouge">rust-eip1962</code> as well. This is to make a more apples-to-apples comparison. With EVM384, pairing implementations can sometimes omit subgroup checks for hard-coded inputs which are known to be in the correct subgroup.</p>
+
+<p>But for the curious, to estimate overhead of subgroup checks, we measured that subgroup checks in wasmcurves add ~15% modular arithmetic to the pairing, so we approximate a 15% slowdown for subgroup checks.</p>
+
+<p>To preserve our apples-to-apples comparision, we omit more optimized implementations of evm384 opcodes, in particular our <code class="language-plaintext highlighter-rouge">mulmodmont384</code> is not implemented in assembly.</p>
+
+<h2 id="miller-loop-synthetic-benchmark">Miller Loop Synthetic Benchmark</h2>
+
+<p>Pairing algorithms have two major parts: the miller loop and final exponentiation. For this update, we <a href="https://gist.github.com/poemm/87969fe13ec5656d63230ac95d56fc36">implemented</a> the miller loop algorithm from <a href="https://github.com/supranational/blst">blst</a>, with the exception of multiplication in $F_p^2$ – we replace blst’s <code class="language-plaintext highlighter-rouge">mul_fp2()</code> with <a href="https://github.com/iden3/wasmcurves">wasmcurves’</a> <code class="language-plaintext highlighter-rouge">f2m_mul()</code>, which seem to be equivalent. The reason we don’t use blst’s <code class="language-plaintext highlighter-rouge">mul_fp2()</code> is because its optimizations require 768-bit arithmetic, which would be too expensive in EVM384.</p>
+
+<p>It is known that pairing algorithms may have different intermediate and output values, but still preserve bilinearity allowing agreement on the evaluation of pairing equations. Our algorithm too gives different outputs than blst, but the outputs match when we swapped <code class="language-plaintext highlighter-rouge">mul_fp2()</code> with <code class="language-plaintext highlighter-rouge">f2m_mul()</code> in blst itself, so at least we are doing a similar amount of computation.</p>
+
+<p>We remain unsure whether our miller loop implementation is correct, and we may not know until we implement the final exponentiation. But our miller loop implementation gives us a better approximation of the full pairing algorithm. So we design a new synthetic pairing benchmark. We note that the final exponentiation costs around 1.5x of a miller loop, eg <a href="https://github.com/mratsim/constantine/tree/244f58350c795ca9306a1f1a14a7ad42bf7c3579#measuring-performance">see numbers here</a>. And our benchmark is for a pairing equation check which includes two miller loops and one final exponentiation. So our new synthetic pairing algorithm is three miller loops, with the last miller loop having a 1.5x adjustment factor to approximate the final exponentiation. Or a 1.16x adjustment factor overall.</p>
+
+<p><img src="https://github.com/ewasm/benchmarking/raw/evm384-update-3-charts/charts/evm384-miller-vs-synth.png" alt="" /></p>
+
+<p><strong>Figure 2.</strong> Runtimes of two point pairing check in native, EVM384 synthetic pairing check using miller loop, EVM384 synthetic pairing check using f6m_mul, and wasm pairing check.</p>
+
+<p>In figure 2, observe that we approach the performance of a native implementation by using interpreters, with native code for bottlenecks.</p>
+
+<h2 id="conclusion">Conclusion</h2>
+
+<p>We continue to seek implementers of cryptographic algorithms in EVM384. We have demonstrated that we can implement (something which resembles) the miller loop. We are open to cryptographers implementing the rest of BLS12-381 pairings, or starting their own implementations for whatever cryptography they need. In-demand algorithms are BLS12-381 operations and BLS12-377 operations.</p>
+
+
+      </article>
+
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+
+      
+
+      <ul class="pager blog-pager">
+        
+        <li class="previous">
+          <a href="/ewasm-portal/2020/09/18/evm384-update2/" data-toggle="tooltip" data-placement="top" title="EVM384 - Update on the Interface">&larr; Previous Post</a>
+        </li>
+        
+        
+      </ul>
+
+      
+        <div class="disqus-comments">
+          
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/ewasm-portal/feed.xml" title="RSS"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">RSS</span>
+              </a>
+            </li><li><a href="mailto:solidity@ethereum.org" title="Email me"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-envelope fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">Email me</span>
+              </a>
+            </li><li><a href="https://github.com/ewasm" title="GitHub"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">GitHub</span>
+              </a>
+            </li><li><a href="https://gitter.im/ethereum/ewasm" title="Gitter"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-comments fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">Gitter</span>
+              </a>
+            </li><li><a href="https://twitter.com/ethereumWasm" title="Twitter"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">Twitter</span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+        Ewasm Team
+        &nbsp;&bull;&nbsp;
+        2020
+
+        
+        &nbsp;&bull;&nbsp;
+        <a href="https://ewasm.ethereum.org">ewasm.ethereum.org</a>
+        
+
+        &nbsp;&bull;&nbsp;
+        <a href="/archive/">Blog Archive</a>
+
+        
+        
+      </p>
+        <!-- Please don't remove this, keep my open source work credited :) -->
+        <p class="theme-by text-muted">
+          Theme by
+          <a href="http://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/ewasm-portal/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    
+    
+	<script src="/ewasm-portal/js/bootstrap.min.js"></script>
+    
+  
+    
+    
+	<script src="/ewasm-portal/js/main.js"></script>
+    
+  
+
+
+
+  
+  </body>
+</html>
